@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Users, Download, Mail, Hash, ChevronRight, Award, Sparkles, Lock } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { getAllData } from '../Database/getMaster';
+import { getAllData } from '../../Database/getMaster';
 
 // Card Component
 const Card = ({ children, delay }) => {
