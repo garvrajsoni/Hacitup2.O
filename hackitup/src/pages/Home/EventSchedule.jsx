@@ -17,7 +17,7 @@ const EventSchedule = () => {
 
   const scheduleEvents = [
     {
-      date: "18 Feb 2025",
+      date: "20 Feb 2025",
       day: "Tuesday",
       event: "Registration Opens",
       description: "Kickstart your journey by registering for the hackathon. Secure your spot early!",

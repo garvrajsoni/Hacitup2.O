@@ -86,7 +86,7 @@ const Footer = () => {
               onChange={(e) => setEmailbody(e.target.value)}
             />
             <motion.a
-              href={`mailto:ctaecodercarousal@gmail.com?subject=${"Query Regarding Hackathon"}&body=${emailbody}`}
+              href={`mailto:c3programmingclub@gmail.com?subject=${"Query Regarding Hackathon"}&body=${emailbody}`}
               className="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-r-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

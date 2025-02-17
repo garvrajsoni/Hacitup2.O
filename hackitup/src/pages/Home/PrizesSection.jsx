@@ -60,7 +60,7 @@ const PrizesSection = () => {
       {/* Header Section */}
       <motion.div
         style={{ opacity: useTransform(smoothProgress, [0, 0.2], [0, 1]) }}
-        className="sticky top-0 pt-16 text-center z-10"
+        className="sticky top-0 mt-10 pt-16 text-center z-10"
       >
         <h1 className="text-6xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500 mb-2">
           Prizes
@@ -82,7 +82,7 @@ const PrizesSection = () => {
           }}
           className="absolute"
         >
-          <Trophy className="w-32 h-32 text-green-500 drop-shadow-[0_0_15px_rgba(5, 255, 47, 0.5)]" />
+          <Trophy className="mt-4 w-32 h-32 text-green-500 drop-shadow-[0_0_15px_rgba(5, 255, 47, 0.5)]" />
         </motion.div>
 
         {/* Prize Podium */}
@@ -136,7 +136,7 @@ const PrizesSection = () => {
                           <span
                             className={`text-3xl sm:text-4xl md:text-5xl font-bold ${prize.color}`}
                           >
-                            ${prize.amount.toLocaleString()}
+                            ₹{prize.amount.toLocaleString()}
                           </span>
                           <span
                             className={`text-sm sm:text-base md:text-lg font-medium ${prize.color} 

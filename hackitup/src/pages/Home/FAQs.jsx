@@ -11,9 +11,12 @@ const FAQSection = () => {
     { question: "Do I need a team?", answer: "You can participate as part of a team. If you don't have a team, you can form one at the event." },
     { question: "What should I bring?", answer: "Bring your laptop, chargers, and any other equipment you need for coding. Snacks and a sleeping bag might also come in handy!" },
     { question: "Are there any prizes?", answer: "Yes, there are awesome prizes for the best projects. Details on the prizes will be announced closer to the event." },
+    { question: "What skills are required to participate?", answer: "Skills are up to you—just bring your creativity, coding skills, and a basic understanding of Git and GitHub!" },
     { question: "Will there be mentors?", answer: "Yes, we will have mentors available to help you throughout the hackathon. They can provide guidance and support for your projects." },
     { question: "What is the schedule?", answer: "The hackathon will start on 27th February 2024. A detailed schedule will be provided to all participants closer to the event." },
     { question: "How do I register?", answer: "You can register on our website. Follow the registration link and fill out the form to secure your spot at HackitUp 2.0." },
+
+    
   ];
 
   return (
