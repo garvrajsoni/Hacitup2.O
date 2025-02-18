@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "hackitupctae",
     "public": "dist",
     "ignore": [
       "firebase.json",

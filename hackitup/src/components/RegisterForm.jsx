@@ -32,6 +32,8 @@ const RegisterForm = () => {
     getAllData('team', setTeams);
   }, []);
 
+  const yearOptions = ["1st year", "2nd year", "3rd year", "4th year"];
+
   // Validation functions
   const validateEmail = (email) => {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -43,13 +45,31 @@ const RegisterForm = () => {
     return re.test(mobile);
   };
 
-  const validateClass = (classYear) => {
-    const re = /^([1-4])(st|nd|rd|th)\s+year$/i;
-    return re.test(classYear);
-  };
-
   const validateName = (name) => {
     return name.length >= 2 && /^[a-zA-Z\s]+$/.test(name);
+  };
+
+  const validateTeamComposition = () => {
+    const yearCounts = members.reduce((acc, member) => {
+      acc[member.class] = (acc[member.class] || 0) + 1;
+      return acc;
+    }, {});
+
+    const hasJunior = (yearCounts["1st year"] || 0) + (yearCounts["2nd year"] || 0) > 0;
+    const thirdYearCount = yearCounts["3rd year"] || 0;
+    const fourthYearCount = yearCounts["4th year"] || 0;
+
+    if (thirdYearCount >= 3 || fourthYearCount >= 3) {
+      if (!hasJunior) {
+        return "Team must include at least one member from 1st or 2nd year";
+      }
+    }
+
+    if (thirdYearCount === 2 && !hasJunior) {
+      return "Team with two 3rd year students must include at least one member from 1st or 2nd year";
+    }
+
+    return "";
   };
 
   const handleTeamMemberChange = (e, index) => {
@@ -61,7 +81,8 @@ const RegisterForm = () => {
     // Clear error when user starts typing
     setErrors(prev => ({
       ...prev,
-      [`member${index}_${name}`]: ""
+      [`member${index}_${name}`]: "",
+      teamComposition: ""
     }));
 
     // Validate on change
@@ -75,11 +96,6 @@ const RegisterForm = () => {
       case "mo_no":
         if (!validateMobile(value)) {
           error = "Please enter a valid 10-digit mobile number";
-        }
-        break;
-      case "class":
-        if (!validateClass(value)) {
-          error = "Please enter class as '1st year', '2nd year', etc.";
         }
         break;
       case "name":
@@ -125,10 +141,16 @@ const RegisterForm = () => {
       if (!validateMobile(member.mo_no)) {
         newErrors[`member${index}_mo_no`] = "Please enter a valid 10-digit mobile number";
       }
-      if (!validateClass(member.class)) {
-        newErrors[`member${index}_class`] = "Please enter class as '1st year', '2nd year', etc.";
+      if (!member.class) {
+        newErrors[`member${index}_class`] = "Please select a year";
       }
     });
+
+    // Validate team composition
+    const compositionError = validateTeamComposition();
+    if (compositionError) {
+      newErrors.teamComposition = compositionError;
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -230,6 +252,15 @@ const RegisterForm = () => {
             </div>
           </ParallaxBox>
 
+          {/* Team Composition Error */}
+          {errors.teamComposition && (
+            <ParallaxBox>
+              <p className="text-red-500 text-sm text-center bg-red-500/10 p-4 rounded-xl border border-red-500/30">
+                {errors.teamComposition}
+              </p>
+            </ParallaxBox>
+          )}
+
           {/* Team Members Section */}
           {members.map((member, index) => (
             <ParallaxBox key={index} delay={0.3 + index * 0.1}>
@@ -240,7 +271,7 @@ const RegisterForm = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {['name', 'class', 'email', 'mo_no'].map((field) => (
+                  {['name', 'email', 'mo_no'].map((field) => (
                     <div key={field} className="relative group">
                       <input
                         type={field === 'email' ? 'email' : 'text'}
@@ -259,6 +290,28 @@ const RegisterForm = () => {
                       )}
                     </div>
                   ))}
+                  
+                  {/* Year Dropdown */}
+                  <div className="relative group">
+                    <select
+                      name="class"
+                      value={member.class}
+                      onChange={(e) => handleTeamMemberChange(e, index)}
+                      className="w-full px-6 py-4 bg-black/50 border border-green-500/30 rounded-xl text-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 appearance-none"
+                      required
+                    >
+                      <option value="">Select Year</option>
+                      {yearOptions.map((year) => (
+                        <option key={year} value={year}>{year}</option>
+                      ))}
+                    </select>
+                    <label className="absolute text-green-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-black/80 px-2 left-4">
+                      Year
+                    </label>
+                    {errors[`member${index}_class`] && (
+                      <p className="text-red-500 text-sm mt-1">{errors[`member${index}_class`]}</p>
+                    )}
+                  </div>
                 </div>
               </div>
             </ParallaxBox>

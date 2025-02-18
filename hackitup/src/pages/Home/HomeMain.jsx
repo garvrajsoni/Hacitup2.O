@@ -12,6 +12,7 @@ import PrizesSection from "./PrizesSection";
 import FAQSection from "./FAQs";
 import Header from "./Header";
 import Footer from "./Footer";
+import Sponsers from "../../components/Sponsors";
 
 
 
@@ -40,6 +41,7 @@ const HomeMain = () => {
       <EventSchedule />
 
       <PrizesSection />
+      <Sponsers/>
 
       <FAQSection />
       <Footer/>
